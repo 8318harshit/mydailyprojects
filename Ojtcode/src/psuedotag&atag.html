@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>a tag and psuedo element target</title>
+        <style>
+          .box{
+            border: 1px solid black;
+            width: 250px;
+            height: 250px;
+          }
+          .box1{
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+          }
+          .idtext{
+            display: flex;
+            justify-content: space-between;
+          }
+          .box:target {
+            background-color: black;
+            color: white;
+          }
+        </style>
+    </head>
+    <body>
+        <div class="idtext">
+             <a href="#css">CSS</a>
+             <a href="#html">HTML</a>
+             <a href="#js">JS</a>
+             <a href="tel:0123456789">0123456789</a>
+             <a href="mailto:hardj451@gmail.com">MAIL HARDY</a>
+             <!-- <a href="http://www.youtube.com" >
+              <img src="../public/images/Netflix_Logo_RGB.png">
+             </a> only remove when want pic in web page -->
+             <a href="https://seriouscomputerist.atariverse.com/media/pdf/book/C%20Programming%20Language%20-%202nd%20Edition%20(OCR).pdf" download="The c book">pdf</a>
+             <a href="javascript:window.print()">Print this page</a>
+             <a href="javascript:window.open('http://www.youtube.com','newwindow','width=500, height=500')">open new window of youtube</a>
+        </div>
+        <div class="box1">
+            <div class="box" id="css">CSS</div>
+            <div class="box" id="html">HTML</div>
+            <div class="box" id="js">JS</div>
+        </div>
+    </body>
+</html>

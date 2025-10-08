@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netflix India &ndash; Watch TV Shows Online, Watch Movies Online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="/public/images/favicon 2.ico">
+    <style>
+        .overlay{
+            background-color: rgba(0, 0, 0, 0.6);
+            height: 850px;
+        }
+    body {
+        background-image: url("../public/images/netflixbackground.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        color: white;
+        padding: 0px;
+        font-family: Arial, sans-serif;
+        margin: 0px;
+    }
+    header {
+        height: 50px;
+        width: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .sitetitle {
+        font-size: 40px;
+        height: 50px;
+        width: 200px;
+        color: rgb(229, 9, 20);
+        padding-top: 20px;
+    }
+    .logoimage {
+        width: 250px;
+        height: 50px;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+    .content {
+        text-align: center;
+        font-size: 20px;
+        margin-top: 150px;
+        margin-bottom: 0px;
+        font-weight: bold;
+        font-size: 25px;
+        padding-top: 75px;
+    }
+    .discript1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+    .discript1 input {
+        width: 400px;
+        height: 30px;
+        font-size: 16px;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 60%);
+        color: white;
+        margin-right: 10px;
+        box-shadow: none;
+        outline: none;
+        border: none;
+    }
+    .discript1 button {
+        width: 100px;
+        height: 44px;
+        font-size: 16px;
+        box-shadow: none;
+        outline: none;
+        border: none;
+        background-color: rgba(0, 0, 0, 80%);
+    }
+    .dropdown {
+        background-color: black;
+        color: white;
+        width: 75px;
+        height: 20px;
+        padding: 0px;
+    }
+    button {
+        width: 75px;
+        height: 20px;
+        background-color: black;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+         <div class="sitetitle">
+            <img src="../public/images/Netflix_Logo_RGB.png" alt="Netflix Logo" class="logoimage">
+         </div>
+         <nav>
+            <select name="Language" id="Language-select" class="dropdown">
+                <option value="English">English</option>
+                <option value="Hindi">Hindi</option>
+            </select>
+            <button class="topbutton">Sign In</button>
+         </nav>
+        </header>
+     <div class="content">
+        <h1>Unlimited movies, TV shows and more.</h1>
+        <h2>Watch anywhere. Cancel anytime.</h2>
+        <p>Ready to watch? Enter your email to create or restart your membership.</p>
+     </div>
+     <div class="discript1">
+        <input type="text" placeholder="Enter your mail">
+        <button>Search</button>
+     </div>
+    </div>
+</body>
+</html>

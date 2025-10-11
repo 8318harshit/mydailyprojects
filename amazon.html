@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <title>Amazon</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            margin: 0px;
+            padding: 0px;
+            background-color: rgb(227, 230, 230);
+        }
+        header{
+            background-color: rgb(20, 25, 32);
+            padding: 8px 15px 7px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            color: white;
+            height: 40px;
+            align-items: end;
+        }
+        .dropdown{
+            width: 45px;
+            height: 36px;
+            background-color:rgb(20, 25, 32) ;
+            border: 0px;
+            color: white;
+            font-size: 17px;
+            padding-top: 16px;
+            appearance: none;
+        }
+        input{
+            width: 450px;
+            height: 34px;
+            border: 0px;
+            padding-left: 5px;
+        }
+        .searchbtn{
+            width: 40px;
+            height: 36px;
+            border-radius: 0px 4px 4px 0px;
+            border: 0px;
+            background-color: rgb(244, 192, 119);
+        }
+        .Cateogries1{
+            margin: 0px;
+            padding-right: 0px;
+            padding-left: 3px;
+            width: 40px;
+            height: 36px;
+            border-radius: 4px 0px 0px 4px;
+            border: 0px;
+            background-color: lightgray;
+
+        }
+        .searchbar{
+            display: flex;
+            align-items: center;
+        }
+        .secondaryhead{
+            background-color: rgb(38, 47, 61);
+            text-align: center;
+            color: white;
+            display: flex;
+            justify-content: space-evenly;
+            font-size: 14px;
+            padding: 10px;
+            padding-right: 10%;
+        }
+        .mainback{
+            position: relative;
+            z-index: -1;
+        }
+        .cards{
+            margin-top: -380px;
+            z-index: 1;
+            gap: 20px;
+            background-color: rgb(255, 255, 255);
+            height: 380px;
+            padding: 20px;
+            width: 21%;
+
+        }
+        section{
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .div23{
+            height: 87px;
+            padding: 1%;
+        }
+        .cards1{
+            margin-top: -380px;
+            z-index: 1;
+            gap: 20px;
+            background-color: rgb(255, 255, 255);
+            height: 100px;
+            padding: 20px;
+            width: 21%;
+        }
+        .signin{
+            background-color: rgb(249, 218, 77);
+            border: none;
+            width: 100%;
+            height: 35px;
+            font-weight: bold;
+            border-radius: 17.5px;
+        }
+         .belsign{
+            height: 215px;
+            width: 100%;
+        }
+         .incard{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+         p{
+            font-size: 12px;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: top;"><img src="./images/amazn.png" alt="" width="120px",height=65px"></div>
+        <div><span class="bi bi-geo-alt"></span>Update location</div>
+        <div class="searchbar">
+            <select name="Cateogries" id="" class="Cateogries1">
+                <option value="">All</option>
+            </select>
+            <input type="text" placeholder="Search Amazon.in">
+            <button class="searchbtn">
+                <span class="bi bi-search"></span>
+            </button>
+        </div>
+        <div>
+            <span class="bi bi-chevron-down"></span>
+            <select name="Language" id="Language-select" class="dropdown">
+            <option value="">En</span></option>
+            <option value="">Hindi</option>
+            </select>
+        </div>
+        <div>Accoutn & Lists</div>
+        <div>& Order</div>
+        <div style="font-size: 26px;"><span class="bi bi-cart2"></span><span style="color: rgb(229, 143, 53);">0</span></div>
+    </header>
+    <main>
+        <div class="secondaryhead">
+            <div><span class="bi bi-list"></span>All</div>
+            <div>Fresh</div>
+            <div>MX Player <span class="bi bi-caret-down-fill"></span></div>
+            <div>Sell</div>
+            <div>Bestsellers</div>
+            <div>Today's Deals</div>
+            <div>Mobiles</div>
+            <div>Electronics</div>
+            <div>New Release</div>
+            <div>Costumer Service</div>
+            <div>Prime <span class="bi bi-caret-down-fill"></span></div>
+            <div>Home & Kitchen</div>
+            <div>Fashion</div>
+            <div>Amazon Pay</div>
+            <div>Computers</div>
+            <div>Books</div>
+        </div>
+        <aside>
+            <div class="mainback">
+                <img src="./images/amazonback.jpg" alt="">
+            </div>
+        </aside>
+        <section>
+             <div class="cards">
+                <div><h3>Upto 80% off | Electronics & Accessories</h3></div>
+                <img src="./images/div1.jpg" alt="" height="235px">
+                <div style="padding-top: 20px;">
+                    <a href="" style="font-size: 13px;">See all offers</a>
+                </div>
+            </div>
+            <div class="cards">
+                <div><h3>Upto 80% off | Home, Kitchen & more</h3></div>
+                <div class="incard">
+                    <span>
+                        <img src="./images/div2-1.jpg" alt="" class="div23">
+                        <p>Kitchen essentials</p>
+                    </span>
+                    <span>
+                        <img src="./images/div2-2.jpg" alt="" class="div23">
+                        <p>Home decor</p>
+                    </span>
+                </div>
+                <div class="incard">
+                    <span>
+                        <img src="./images/div2-3.jpg" alt="" class="div23">
+                        <p>Furniture</p>
+                    </span>
+                    <span>
+                        <img src="./images/div2-4.jpg" alt="" class="div23">
+                        <p>Home improvement</p>
+                    </span>
+                </div>
+                <div style="padding-top: 20px;">
+                    <a href="" style="font-size: 13px;">See all deals</a>
+                </div>
+            </div>
+            <div class="cards">
+                <div><h3>Get Wholesale pricing +10% Welcome Cashback</h3></div>
+                <div class="incard">
+                    <span>
+                        <img src="./images/div3-1.jpg" alt="" class="div23">
+                        <p>Home appliances</p>
+                    </span>
+                    <span>
+                        <img src="./images/div3-2.jpg" alt="" class="div23">
+                        <p>Electronics</p>
+                    </span>
+                </div>
+                <div class="incard">
+                    <span>
+                        <img src="./images/div3-3.jpg" alt="" class="div23">
+                        <p>Furniture & decors</p>
+                    </span>
+                    <span>
+                        <img src="./images/div3-4.jpg" alt="" class="div23">
+                        <p>For Business purchases</p>
+                    </span>
+                </div>
+                <div style="padding-top: 20px;">
+                    <a href="" style="font-size: 13px;">See all deals</a>
+                </div>
+            </div>
+            <div>
+                <div class="cards1" style="width:88%;">
+                    <div><h3>Sign in for your best experience</h3></div>
+                     <div><button class="signin">Sign in securely</button></div>
+                </div>
+                <div style="padding-top: 20%;">
+                    <img src="./images/div5.jpg" alt="" class="belsign">
+                </div>  
+            </div>  
+        </section>
+    </main>
+</body>
+</html>

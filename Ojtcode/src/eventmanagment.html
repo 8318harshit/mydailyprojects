@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <title>EventHorizon - Event Manager</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            padding: 20px; 
+            background-color: #050805;
+            color: #D3C6AA;
+        }
+
+        .navbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 30px; 
+            border-bottom: 1px solid #1a231a;
+            padding-bottom: 15px;
+        }
+
+        .dashboardcontrols { 
+            display: flex; 
+            gap: 20px; 
+            margin-bottom: 30px; 
+            flex-wrap: wrap; 
+        }
+
+        .statbox { 
+            display: flex; 
+            align-items: center; 
+            background: #0D140D;
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #2D3F2D; 
+            min-width: 180px; 
+        }
+
+        .searchbox { 
+            border: 1px solid #2D3F2D; 
+            padding: 10px; 
+            border-radius: 8px; 
+            background: #0D140D; 
+            display: flex; 
+            align-items: center; 
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .searchbox input {
+            background: transparent;
+            border: none;
+            color: #D3C6AA;
+            outline: none;
+            width: 100%;
+        }
+
+        .cardpar { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+        }
+
+        .cards {
+            background: #0D140D;
+            border: 1px solid #2D3F2D;
+            width: 300px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+
+        .cards:hover { 
+            transform: translateY(-5px); 
+            border-color: #A7C080;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0D140D;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #A7C080;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            z-index: 100;
+            width: 350px;
+            color: #D3C6AA;
+        }
+
+        input, select, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 8px 0; 
+            border: 1px solid #2D3F2D; 
+            border-radius: 4px; 
+            background: #1a231a;
+            color: #D3C6AA;
+            box-sizing: border-box;
+        }
+
+        progress { 
+            width: 100%; 
+            height: 8px; 
+            margin: 15px 0; 
+        }
+
+        progress::-webkit-progress-bar { background-color: #1a231a; border-radius: 4px; }
+        progress::-webkit-progress-value { background-color: #A7C080; border-radius: 4px; }
+
+        .btn-primary { 
+            background: #A7C080;
+            color: #050805; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background: #2D3F2D; 
+            color: #D3C6AA; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btnbook { 
+            width: 100%; 
+            background: #A7C080; 
+            color: #050805; 
+            border: none; 
+            padding: 12px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            font-weight: bold;
+        }
+
+        .btnbook:disabled { 
+            background: #2D3F2D; 
+            color: #6a736d;
+            cursor: not-allowed; 
+        }
+
+        .delete-link {
+            text-align: center; 
+            color: #E67E80;
+            font-size: 0.8rem; 
+            margin-top: 15px; 
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            color: #E67E80;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 15px;
+            border: 1px solid #E67E80;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div style="font-weight: bold; font-size: 1.5rem; color: #A7C080;">
+            <span class="bi bi-calendar-check"></span> EventHorizon
+        </div>
+        <div id="nav-actions"></div>
+    </div>
+
+    <div class="dashboardcontrols">
+        <div class="statbox">
+            <div style="flex-grow: 1;">
+                <div style="font-size: 0.7rem; color: #859289;">TOTAL EVENTS</div>
+                <div id="totalcount" style="font-size: 1.4rem; font-weight: bold; color: #A7C080;">0</div>
+            </div>
+            <span class="bi bi-layers" style="font-size: 1.5rem; color: #A7C080;"></span>
+        </div>
+
+        <div class="searchbox">
+            <span class="bi bi-search" style="margin-right: 10px; color: #A7C080;"></span>
+            <input type="text" id="searchInput" placeholder="Search events..." onkeyup="filterEvents()">
+        </div>
+    </div>
+
+    <div class="cardpar" id="cardcontainer"></div>
+
+    <div id="loginModal" class="modal-overlay">
+        <h3 style="margin-top: 0; color: #A7C080;">Admin Login</h3>
+        <p style="font-size: 0.85rem; color: #859289;">Please enter the administrator password.</p>
+        <input type="password" id="adminPassword" placeholder="Password">
+        <div id="loginError" style="color: #E67E80; font-size: 0.8rem; display: none; margin-bottom: 10px;">Incorrect password.</div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button onclick="attemptLogin()" class="btn-primary" style="flex: 2;">Login</button>
+            <button onclick="closeModals()" class="btn-secondary" style="flex: 1;">Cancel</button>
+        </div>
+    </div>
+
+    <form id="eventform" class="modal-overlay">
+        <h3 style="margin-top: 0; color: #A7C080;">New Event</h3>
+        <select id="eventtype">
+            <option value="Conference">Conference</option>
+            <option value="Webinar">Webinar</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Social">Social</option>
+        </select>
+        <input type="text" id="eventname" placeholder="Event Name" required>
+        <input type="date" id="eventdate" required>
+        <input type="text" id="eventlocation" placeholder="Location" required>
+        <input type="number" id="totalseats" placeholder="Total Seats" required>
+        <textarea id="eventdescription" placeholder="Description"></textarea>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button type="submit" class="btn-primary" style="flex: 2;">Save Event</button>
+            <button type="button" onclick="closeModals()" class="btn-secondary" style="flex: 1;">Cancel</button>
+        </div>
+    </form>
+
+    <script>
+        var isAdmin = false;
+
+        function updateUIForRole() {
+            var nav = document.getElementById('nav-actions');
+            if (isAdmin) {
+                nav.innerHTML = '<button class="btn-primary" onclick="showEventForm()"><span class="bi bi-plus"></span> Create Event</button>' +
+                                '<a class="logout-link" onclick="logout()">Logout</a>';
+            } else {
+                nav.innerHTML = '<button class="btn-primary" onclick="showLoginModal()">Admin Access</button>';
+            }
+            renderCards();
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function showEventForm() {
+            document.getElementById('eventform').style.display = 'block';
+        }
+
+        function closeModals() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('eventform').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function attemptLogin() {
+            var pass = document.getElementById('adminPassword').value;
+            if (pass === "admin123") {
+                isAdmin = true;
+                closeModals();
+                updateUIForRole();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            updateUIForRole();
+        }
+
+        document.getElementById('eventform').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var total = parseInt(document.getElementById('totalseats').value);
+            var newEvent = {
+                id: Date.now(),
+                type: document.getElementById('eventtype').value,
+                name: document.getElementById('eventname').value,
+                date: document.getElementById('eventdate').value,
+                location: document.getElementById('eventlocation').value,
+                totalSeats: total,
+                availableSeats: total,
+                desc: document.getElementById('eventdescription').value
+            };
+            var events = JSON.parse(localStorage.getItem('myEvents')) || [];
+            events.push(newEvent);
+            localStorage.setItem('myEvents', JSON.stringify(events));
+            renderCards();
+            this.reset();
+            closeModals();
+        });
+
+        function renderCards() {
+            var events = JSON.parse(localStorage.getItem('myEvents')) || [];
+            var container = document.getElementById('cardcontainer');
+            container.innerHTML = '';
+            document.getElementById('totalcount').innerText = events.length;
+
+            for (var i = 0; i < events.length; i++) {
+                var event = events[i];
+                var filled = event.totalSeats - event.availableSeats;
+                var card = document.createElement('div');
+                card.className = 'cards';
+                
+                // --- Logic for Admin/User Reservation Button ---
+                var isBtnDisabled = (event.availableSeats == 0 || isAdmin);
+                var btnText = "Reserve Seat";
+                
+                if (event.availableSeats == 0) {
+                    btnText = "Sold Out";
+                } else if (isAdmin) {
+                    btnText = "User Access Only";
+                }
+
+                var html = '<div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: bold; color: #859289;">' +
+                           '<span>' + event.type.toUpperCase() + '</span>' +
+                           '<span style="color: ' + (event.availableSeats > 0 ? '#A7C080' : '#E67E80') + '">' + event.availableSeats + ' Left</span>' +
+                           '</div>' +
+                           '<div style="font-weight: bold; font-size: 1.2rem; margin: 12px 0; color: #D3C6AA;">' + event.name + '</div>' +
+                           '<div style="font-size: 0.85rem; color: #859289; margin-bottom: 10px;">' +
+                           '<span class="bi bi-calendar"></span> ' + event.date + ' | <span class="bi bi-geo-alt"></span> ' + event.location +
+                           '</div>' +
+                           '<div style="font-size: 0.85rem; color: #859289; margin: 10px 0;">' + (event.desc || "") + '</div>' +
+                           '<progress value="' + filled + '" max="' + event.totalSeats + '"></progress>' +
+                           '<button class="btnbook" onclick="bookTicket(' + event.id + ')" ' + (isBtnDisabled ? 'disabled' : '') + '>' +
+                           btnText + '</button>';
+
+                if (isAdmin) {
+                    html += '<div class="delete-link" onclick="deleteEvent(' + event.id + ')">Remove Event</div>';
+                }
+
+                card.innerHTML = html;
+                container.appendChild(card);
+            }
+        }
+
+        function bookTicket(id) {
+            // Safety check: Don't allow booking if admin
+            if (isAdmin) return;
+
+            var events = JSON.parse(localStorage.getItem('myEvents')) || [];
+            for (var i = 0; i < events.length; i++) {
+                if (events[i].id == id && events[i].availableSeats > 0) {
+                    events[i].availableSeats -= 1;
+                }
+            }
+            localStorage.setItem('myEvents', JSON.stringify(events));
+            renderCards();
+        }
+
+        function deleteEvent(id) {
+            if (!isAdmin) return;
+            var events = JSON.parse(localStorage.getItem('myEvents')) || [];
+            var updated = events.filter(function(e) { return e.id !== id; });
+            localStorage.setItem('myEvents', JSON.stringify(updated));
+            renderCards();
+        }
+
+        function filterEvents() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var cards = document.getElementsByClassName('cards');
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].querySelector('div:nth-child(2)').innerText.toLowerCase();
+                cards[i].style.display = title.indexOf(input) > -1 ? "" : "none";
+            }
+        }
+
+        updateUIForRole();
+    </script>
+</body>
+</html>
